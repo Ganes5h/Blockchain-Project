@@ -1,0 +1,46 @@
+.certificate1 {
+    padding: 40px;
+    border-radius: 20px;
+    background-color: #fdf6e3;
+    text-align: center;
+    border: 10px solid #ffb74d;
+    max-width: 800px;
+    margin: auto;
+  }
+  
+  .icon1 {
+    font-size: 50px;
+    color: #4caf50;
+  }
+  
+  .title1 {
+    margin: 20px 0;
+    font-family: serif;
+    font-weight: bold;
+  }
+  
+  .subtitle1 {
+    margin-bottom: 40px;
+    font-family: serif;
+  }
+  
+  .name1 {
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-family: serif;
+  }
+  
+  .course1 {
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-family: serif;
+  }
+  
+  .footer1 {
+    margin-top: 50px;
+  }
+  
+  .text1 {
+    font-family: serif;
+  }
+  
