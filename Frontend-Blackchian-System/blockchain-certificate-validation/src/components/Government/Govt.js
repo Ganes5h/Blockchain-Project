@@ -11,6 +11,7 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
+import { useSelector } from "react-redux";
 // Styled card with scaling animation on hover
 const AnimatedCard = styled(Card)(({ theme }) => ({
   width: "300px", // Increased width
@@ -63,13 +64,22 @@ const CardRow = styled("div")(({ theme }) => ({
 
 function Govt() {
   const navigate = useNavigate();
-
+  const user = useSelector((state) => state.auth.user);
+  console.log(user.role);
   const handleNavigate = (path) => {
     navigate(path);
   };
 
   return (
-    <Container>
+    <Container
+      style={{
+        background: "#0f0c29 ",
+        background:
+          "-webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29)",
+        background: "linear-gradient(to right, #24243e, #302b63, #0f0c29)",
+        height: "89.5vh",
+      }}
+    >
       <CardContainer>
         <CardRow>
           <AnimatedCard>

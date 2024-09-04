@@ -12,6 +12,7 @@ import {
 import Swal from "sweetalert2";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const SearchCertificates = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -19,6 +20,7 @@ const SearchCertificates = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [certificatesPerPage] = useState(6);
   const token = useSelector((state) => state.auth.token);
+  const navigate = useNavigate();
 
   // Fetch all certificates on component mount
   useEffect(() => {
@@ -165,14 +167,50 @@ const SearchCertificates = () => {
       }
     });
   };
-
+  const handleClick = () => {
+    navigate("/govt-section");
+  };
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
   };
 
   return (
-    <Container>
-      {/* <Typography variant="h4" gutterBottom>
+    <div
+      style={{
+        background: "#0f0c29 ",
+        background:
+          "-webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29)",
+        background: "linear-gradient(to right, #24243e, #302b63, #0f0c29)",
+        height: "89vh",
+      }}
+    >
+      <button
+        type="button"
+        onClick={handleClick}
+        className="bg-white text-center w-36 rounded-xl h-10 absolute font-sans text-black text-lg font-semibold group m-4"
+        style={{ top: "100px", left: "0" }} // Adjusting the position downwards
+      >
+        <div className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg text-white h-8 w-1/4 flex items-center justify-center absolute left-1 top-[2px] group-hover:w-[128px] z-10 duration-500">
+          <svg
+            width="20px"
+            height="20px"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill="#FFFFFF"
+              d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64z"
+            ></path>
+            <path
+              fill="#FFFFFF"
+              d="m237.248 512 265.408 265.344a32 32 0 0 1-45.312 45.312l-288-288a32 32 0 0 1 0-45.312l288-288a32 32 0 1 1 45.312 45.312L237.248 512z"
+            ></path>
+          </svg>
+        </div>
+        <p className="translate-x-2">Go Back</p>
+      </button>
+      <Container>
+        {/* <Typography variant="h4" gutterBottom>
         Search Certificates
       </Typography>
       <TextField
@@ -184,51 +222,67 @@ const SearchCertificates = () => {
         margin="normal"
       /> */}
 
-      <Grid container spacing={3} marginTop={8}>
-        {currentCertificates.map((certificate) => (
-          <Grid item xs={12} sm={6} md={4} key={certificate._id}>
-            <Card sx={{ minHeight: 200 }}>
-              <CardContent>
-                <Typography variant="h6" gutterBottom>
-                  {certificate.studentName}
-                </Typography>
-                <Typography variant="body1" color="textSecondary">
-                  {certificate.courseName}
-                </Typography>
-                <Typography variant="body2" color="textSecondary">
-                  {new Date(certificate.issueDate).toLocaleDateString()}
-                </Typography>
-              </CardContent>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => handleAddToDigiLocker(certificate)}
-                sx={{ m: 1 }}
-              >
-                Add to DigiLocker
-              </Button>
-              <Button
-                variant="outlined"
-                color="secondary"
-                onClick={() =>
-                  handleViewCertificate(certificate.certificateHash)
-                }
-                sx={{ m: 1 }}
-              >
-                View
-              </Button>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
+        <Grid container spacing={3} marginTop={0.5}>
+          {currentCertificates.map((certificate) => (
+            <Grid item xs={12} sm={6} md={4} key={certificate._id}>
+              <Card sx={{ minHeight: 200 }}>
+                <CardContent>
+                  <Typography variant="h6" gutterBottom>
+                    {certificate.studentName}
+                  </Typography>
+                  <Typography variant="body1" color="textSecondary">
+                    {certificate.courseName}
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    {new Date(certificate.issueDate).toLocaleDateString()}
+                  </Typography>
+                </CardContent>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => handleAddToDigiLocker(certificate)}
+                  sx={{ m: 1 }}
+                >
+                  Add to DigiLocker
+                </Button>
+                <Button
+                  variant="outlined"
+                  color="secondary"
+                  onClick={() =>
+                    handleViewCertificate(certificate.certificateHash)
+                  }
+                  sx={{ m: 1 }}
+                >
+                  View
+                </Button>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
 
-      <Pagination
-        count={Math.ceil(certificates.length / certificatesPerPage)}
-        page={currentPage}
-        onChange={handlePageChange}
-        sx={{ mt: 3, display: "flex", justifyContent: "center" }}
-      />
-    </Container>
+        <Pagination
+          count={Math.ceil(certificates.length / certificatesPerPage)}
+          page={currentPage}
+          onChange={handlePageChange}
+          sx={{
+            mt: 3,
+            display: "flex",
+            justifyContent: "center",
+            "& .MuiPaginationItem-root": {
+              color: "white",
+              borderColor: "white",
+            },
+            "& .MuiPaginationItem-root.Mui-selected": {
+              backgroundColor: "white",
+              color: "black",
+            },
+            "& .MuiPaginationItem-root:hover": {
+              backgroundColor: "rgba(255, 255, 255, 0.2)",
+            },
+          }}
+        />
+      </Container>
+    </div>
   );
 };
 

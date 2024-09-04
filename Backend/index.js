@@ -7,6 +7,7 @@ const certificateRoutes = require("./routes/certificateRoutes");
 const userRoutes = require("./routes/userRoutes");
 const digiLockerRoutes = require("./routes/digiLockerRoutes");
 const contactRoutes = require("./routes/contactRoutes");
+const adminRoutes = require("./routes/adminRoutes");
 const path = require("path");
 
 // const { web3, contract } = require("./utils/web3");
@@ -24,14 +25,19 @@ app.use(
   "/certificates",
   express.static(path.join(__dirname, "./uploads/certificates"))
 );
+app.use(
+  "/documents",
+  express.static(path.join(__dirname, "./uploads/documents"))
+);
 app.use("/gold", express.static(path.join(__dirname, "./utils/GoldMedal.png")));
 app.use("/logo", express.static(path.join(__dirname, "./utils/LOGO.png")));
+
 // Use routes
 app.use("/api/certificates", certificateRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/digilocker", digiLockerRoutes);
 app.use("/api/contact", contactRoutes);
-
+app.use("/api/admin", adminRoutes);
 // Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

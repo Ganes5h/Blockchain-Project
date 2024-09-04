@@ -170,13 +170,15 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import Swal from "sweetalert2";
 import QrScanner from "react-qr-scanner";
+import CelebrationGif from "../../Images/Celebration.gif";
+import { useNavigate } from "react-router-dom";
 
 const Revoke = () => {
   const [certificateHash, setCertificateHash] = useState("");
   const [scanResult, setScanResult] = useState("");
   const [manualResult, setManualResult] = useState("");
   const token = useSelector((state) => state.auth.token);
-
+  const navigate = useNavigate();
   const swalWithBootstrapButtons = Swal.mixin({
     customClass: {
       confirmButton: "btn btn-success",
@@ -224,6 +226,16 @@ const Revoke = () => {
                   title: "Revoked!",
                   text: "The certificate has been revoked successfully.",
                   icon: "success",
+                  background: `#fff url(${CelebrationGif})`,
+                  backdrop: `
+                    rgba(0,255,0,0.3)
+                    url(${CelebrationGif})
+                    left top
+                    no-repeat
+                    url(${CelebrationGif})
+                    right top
+                    no-repeat
+                  `,
                 });
 
                 if (source === "scan") {
@@ -276,6 +288,10 @@ const Revoke = () => {
     }
   };
 
+  const handleClick = () => {
+    navigate("/govt-section");
+  };
+
   const handleScan = (data) => {
     if (data) {
       setScanResult(data.text);
@@ -308,56 +324,103 @@ const Revoke = () => {
   };
 
   return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <h2>Revoke Certificate</h2>
-      <div style={{ display: "inline-block", margin: "20px auto" }}>
-        <QrScanner
-          delay={300}
-          style={{ width: "300px" }}
-          onError={handleError}
-          onScan={handleScan}
-        />
-      </div>
-      {scanResult && (
-        <p>
-          Scanned Result: <strong>{scanResult}</strong>
-        </p>
-      )}
-      <div style={{ marginTop: "30px" }}>
-        <h3>Or Enter Certificate Hash Manually</h3>
-        <form onSubmit={handleManualSubmit}>
-          <input
-            type="text"
-            value={certificateHash}
-            onChange={(e) => setCertificateHash(e.target.value)}
-            placeholder="Enter certificate hash"
-            style={{
-              padding: "10px",
-              width: "300px",
-              borderRadius: "5px",
-              border: "1px solid #ccc",
-            }}
-          />
-          <button
-            type="submit"
-            style={{
-              padding: "10px 20px",
-              marginLeft: "10px",
-              borderRadius: "5px",
-              border: "none",
-              backgroundColor: "#dc3545",
-              color: "#fff",
-              cursor: "pointer",
-            }}
+    <div
+      style={{
+        textAlign: "center",
+        // marginTop: "50px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "column",
+        padding: "20px",
+        position: "relative",
+        background: "#0575E",
+        background: "-webkit-linear-gradient(to right, #021B79, #0575E6)",
+        background: "linear-gradient(to right, #021B79, #0575E6)",
+        height: "90vh",
+      }}
+    >
+      <button
+        type="button"
+        onClick={handleClick}
+        className="bg-white text-center w-36 rounded-xl h-10 absolute font-sans text-black text-lg font-semibold group m-4"
+        style={{ top: "0px", left: "0" }} // Adjusting the position downwards
+      >
+        <div className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg text-white h-8 w-1/4 flex items-center justify-center absolute left-1 top-[2px] group-hover:w-[128px] z-10 duration-500">
+          <svg
+            width="20px"
+            height="20px"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            Revoke
-          </button>
-        </form>
-        {manualResult && (
+            <path
+              fill="#FFFFFF"
+              d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64z"
+            ></path>
+            <path
+              fill="#FFFFFF"
+              d="m237.248 512 265.408 265.344a32 32 0 0 1-45.312 45.312l-288-288a32 32 0 0 1 0-45.312l288-288a32 32 0 1 1 45.312 45.312L237.248 512z"
+            ></path>
+          </svg>
+        </div>
+        <p className="translate-x-2">Go Back</p>
+      </button>
+      <div style={{ backgroundColor: "white", borderRadius: "10px" }}>
+        <h1 style={{ fontSize: "25px", margin: "5px" }}>Revoke Certificate</h1>
+        <div
+          style={{
+            display: "inline-block",
+            margin: "20px auto",
+          }}
+        >
+          <QrScanner
+            delay={300}
+            style={{ width: "300px" }}
+            onError={handleError}
+            onScan={handleScan}
+          />
+        </div>
+        {scanResult && (
           <p>
-            Manual Result: <strong>{manualResult}</strong>
+            Scanned Result: <strong>{scanResult}</strong>
           </p>
         )}
+        <div style={{ marginTop: "30px" }}>
+          <h3>Or Enter Certificate Hash Manually</h3>
+          <form onSubmit={handleManualSubmit}>
+            <input
+              type="text"
+              value={certificateHash}
+              onChange={(e) => setCertificateHash(e.target.value)}
+              placeholder="Enter certificate hash"
+              style={{
+                padding: "10px",
+                width: "300px",
+                borderRadius: "5px",
+                border: "1px solid #ccc",
+              }}
+            />
+            <button
+              type="submit"
+              style={{
+                padding: "10px 20px",
+                marginLeft: "10px",
+                borderRadius: "5px",
+                border: "none",
+                backgroundColor: "#dc3545",
+                color: "#fff",
+                cursor: "pointer",
+              }}
+            >
+              Revoke
+            </button>
+          </form>
+          {manualResult && (
+            <p>
+              Manual Result: <strong>{manualResult}</strong>
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );

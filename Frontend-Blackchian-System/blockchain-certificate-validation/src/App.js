@@ -23,8 +23,17 @@ import Digiloker from "./components/Government/Digiloker";
 import Issue from "./components/Government/Isuue";
 import WhatWeDo from "./components/What we do/WhatWeDo";
 import About from "./components/About/Aboutus";
+import Layout from "./Layout/Layout";
+import AdminLogin from "./Admin/AdminLogin";
+import AdminStatusSelection from "./Admin/StatusSelection";
 import PerfectScrollbar from "react-perfect-scrollbar";
+import PendingVerification from "./Admin/PendingVerification";
+import RejectedVerification from "./Admin/RejectedVerification";
+import ApprovedVerification from "./Admin/ApprovedVerification";
+import Dashboard from "./Admin/Dashboard";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import { AdminPanelSettings } from "@mui/icons-material";
+import LoadingWrapper from "./LoadingWrapper";
 function App() {
   return (
     <Provider store={store}>
@@ -33,40 +42,74 @@ function App() {
           <Router>
             <Navbar />
             <Routes>
-              {/* <Route path="/login" element={<Login />}></Route>
+              <Route path="/" element={<LoadingWrapper />}>
+                {/* <Route path="/login" element={<Login />}></Route>
             <Route path="/signup" element={<Signup />}></Route> */}
-              <Route path="/student-section" element={<Student />}></Route>
-              <Route path="/industry-section" element={<Industry />}></Route>
-              <Route path="/institute-section" element={<Institute />}></Route>
-              <Route path="/" element={<Home />}></Route>
-              <Route path="/contact" element={<Contact />}></Route>
-              <Route path="/what-we-do" element={<WhatWeDo />}></Route>
-              <Route path="/about-us" element={<About />}></Route>
-            </Routes>
-            {/* Government Section Routes */}
-            <Routes>
-              <Route path="/govt-section" element={<Goverment />}></Route>
-              <Route path="/issue-certificate" element={<Issue />}></Route>
-              <Route
-                path="/validate-certificates"
-                element={<Validate />}
-              ></Route>
-              <Route path="/revoke-certificates" element={<Revoke />}></Route>
-              <Route
-                path="/issued-certificates"
-                element={<IssuedByYou />}
-              ></Route>
-              <Route
-                path="/all-certificates"
-                element={<AllCertificates />}
-              ></Route>
-              <Route path="/digilocker" element={<Digiloker />}></Route>
-            </Routes>
-            <Routes>
-              {/* <Route path="/login" element={<LoginDialog />} />
+                <Route path="/student-section" element={<Student />}></Route>
+                <Route path="/industry-section" element={<Industry />}></Route>
+                <Route
+                  path="/institute-section"
+                  element={<Institute />}
+                ></Route>
+                <Route path="/" element={<Home />}></Route>
+                <Route path="/contact" element={<Contact />}></Route>
+                <Route path="/what-we-do" element={<WhatWeDo />}></Route>
+                <Route path="/about-us" element={<About />}></Route>
+                <Route path="/layout" element={<Layout />}></Route>
+                {/* </Routes> */}
+                {/* Government Section Routes */}
+                {/* <Routes> */}
+                <Route path="/govt-section" element={<Goverment />}></Route>
+                <Route path="/issue-certificate" element={<Issue />}></Route>
+                <Route
+                  path="/validate-certificates"
+                  element={<Validate />}
+                ></Route>
+                <Route path="/revoke-certificates" element={<Revoke />}></Route>
+                <Route
+                  path="/issued-certificates"
+                  element={<IssuedByYou />}
+                ></Route>
+                <Route
+                  path="/all-certificates"
+                  element={<AllCertificates />}
+                ></Route>
+                <Route path="/digilocker" element={<Digiloker />}></Route>
+                {/* </Routes> */}
+                {/* <Routes> */}
+                {/* <Route path="/login" element={<LoginDialog />} />
             <Route path="/signup" element={<SignupDialog />} /> */}
+                {/* </Routes> */}
+                {/* Admin Routes */}
+                {/* <Routes> */}
+                <Route
+                  path="/secure/certify/admin/login"
+                  element={<AdminLogin />}
+                ></Route>
+                <Route
+                  path="/secure/certify/admin/status"
+                  element={<AdminStatusSelection />}
+                ></Route>
+                <Route
+                  path="/secure/certify/admin/pending"
+                  element={<PendingVerification />}
+                ></Route>
+                <Route
+                  path="/secure/certify/admin/rejected"
+                  element={<RejectedVerification />}
+                ></Route>
+                <Route
+                  path="/secure/certify/admin/approved"
+                  element={<ApprovedVerification />}
+                ></Route>
+                <Route
+                  path="/secure/certify/admin/dashboard"
+                  element={<Dashboard />}
+                ></Route>
+              </Route>
             </Routes>
           </Router>
+
           <Toaster position="top-right" richColors />
         </div>
       </PerfectScrollbar>

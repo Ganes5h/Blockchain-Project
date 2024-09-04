@@ -371,7 +371,8 @@ import {
   Delete as DeleteIcon,
   Add as AddIcon,
 } from "@mui/icons-material";
-
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const DigiLockerCertificates = () => {
   const [certificates, setCertificates] = useState([]);
   const [totalCertificates, setTotalCertificates] = useState(0);
@@ -379,7 +380,8 @@ const DigiLockerCertificates = () => {
   const [totalPages, setTotalPages] = useState(1);
   const certificatesPerPage = 5;
   const token = localStorage.getItem("token"); // Assuming token is stored in local storage
-
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.user);
   useEffect(() => {
     const fetchCertificates = async () => {
       try {
@@ -507,24 +509,74 @@ const DigiLockerCertificates = () => {
     }
   };
 
+  const handleClick = () => {
+    if (user.role === "student") {
+      navigate("/student-section");
+    } else if (user.role === "industry") {
+      navigate("/industry-section");
+    } else if (user.role === "government") {
+      navigate("/govt-section");
+    }
+  };
+
   const handlePageChange = (event, page) => {
     setCurrentPage(page);
   };
 
   return (
-    <div style={{ padding: "20px", position: "relative" }}>
+    <div
+      style={{
+        padding: "20px",
+        position: "relative",
+        background: "#0f0c29 ",
+        background:
+          "-webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29)",
+        background: "linear-gradient(to right, #24243e, #302b63, #0f0c29)",
+        height: "90vh",
+      }}
+    >
+      <button
+        type="button"
+        onClick={handleClick}
+        className="bg-white text-center w-36 rounded-xl h-10 absolute font-sans text-black text-lg font-semibold group m-4"
+        style={{ top: "0px", left: "0" }} // Adjusting the position downwards
+      >
+        <div className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg text-white h-8 w-1/4 flex items-center justify-center absolute left-1 top-[2px] group-hover:w-[128px] z-10 duration-500">
+          <svg
+            width="20px"
+            height="20px"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill="#FFFFFF"
+              d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64z"
+            ></path>
+            <path
+              fill="#FFFFFF"
+              d="m237.248 512 265.408 265.344a32 32 0 0 1-45.312 45.312l-288-288a32 32 0 0 1 0-45.312l288-288a32 32 0 1 1 45.312 45.312L237.248 512z"
+            ></path>
+          </svg>
+        </div>
+        <p className="translate-x-2">Go Back</p>
+      </button>
       <Button
         variant="contained"
         color="primary"
         startIcon={<AddIcon />}
-        style={{ position: "absolute", top: "20px", right: "20px" }}
+        style={{
+          position: "absolute",
+          top: "20px",
+          right: "20px",
+          color: "white",
+        }}
         onClick={handleCreateDigiLocker}
       >
         Create DigiLocker
       </Button>
 
       {certificates.length === 0 ? (
-        <Typography variant="h6">
+        <Typography variant="h6" style={{ color: "white" }}>
           No certificates found in DigiLocker.
         </Typography>
       ) : (
@@ -590,7 +642,22 @@ const DigiLockerCertificates = () => {
         page={currentPage}
         onChange={handlePageChange}
         color="primary"
-        sx={{ mt: 3, display: "flex", justifyContent: "center" }}
+        sx={{
+          mt: 3,
+          display: "flex",
+          justifyContent: "center",
+          "& .MuiPaginationItem-root": {
+            color: "white",
+            borderColor: "white",
+          },
+          "& .MuiPaginationItem-root.Mui-selected": {
+            backgroundColor: "white",
+            color: "black",
+          },
+          "& .MuiPaginationItem-root:hover": {
+            backgroundColor: "rgba(255, 255, 255, 0.2)",
+          },
+        }}
       />
     </div>
   );

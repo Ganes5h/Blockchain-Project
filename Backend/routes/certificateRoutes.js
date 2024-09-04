@@ -18,6 +18,7 @@ const authMiddleware = require("../middleware/authMiddleware");
 router.use(authMiddleware.protect); // Protect all certificate routes
 
 router.post("/issue", certificateController.issueCertificate);
+
 router.get(
   "/validate/:certificateHash",
   certificateController.validateCertificate

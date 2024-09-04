@@ -35,7 +35,7 @@ const sendCertificateEmail = async (
     from: process.env.SMTP_USER,
     to: recipientEmail,
     subject: "Your Certificate of Completion",
-    text: `Dear ${recipientName},\n\nCongratulations on completing the ${courseName} course !\nPlease find attached your Certificate of Completion.\n\nFor further details and to secure your certificate into your DigiLocker, please visit our website. \n\nBest regards,\n© All rights reserverd | Secure Certify ©`,
+    text: `Dear ${recipientName},\n\nCongratulations on completing the ${courseName} course !\nPlease find attached your Certificate of Completion.\n\nFor further details and to secure your certificate into your DigiLocker, please visit our website. \n\nBest regards,\n© All rights reserverd | Secure Certify`,
     // text: `Dear ${recipientName},\n\nPlease find attached your Certificate of Completion for the course ${courseName}.\n\nBest regards,\nYour Company`,
     attachments: [
       {
